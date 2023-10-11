@@ -1,0 +1,113 @@
+.popular {
+  padding: 80px 0;
+}
+
+.books__book {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 2px 0 15px 5px rgba(1, 6, 33, 0.06);
+  height: 390px;
+  position: relative;
+  text-align: left;
+}
+
+.books__book img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.books_book_bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-color: #fff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 15px;
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.books__book:hover .books_book_bottom {
+  transform: translateY(-70px);
+}
+
+.books__book__bottom--title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #2f4858;
+  font-family: Philosopher, sans-serif;
+  font-weight: 700;
+}
+
+.books__book__bottom--subtitle {
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 1.8px;
+}
+
+.books__book__bottom--author {
+  margin-bottom: 5px;
+}
+
+.view-btn {
+  width: fit-content;
+  margin: 20px 0;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out, visibility 0.5s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.view-btn a {
+  background-color: #5a8f7b;
+  border-radius: 5px;
+  padding: 15px 20px;
+  color: white;
+  font-weight: 600;
+  display: block;
+}
+
+.view-btn a:hover {
+  color: white !important;
+}
+
+.books__book:hover .view-btn {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cart {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  padding: 6px;
+  background-color: #5a8f7b;
+  border-radius: 50%;
+  position: absolute;
+  justify-content: center;
+  right: 0px;
+  top: 15px;
+  cursor: pointer;
+  transform: translateY(0);
+  opacity: 0;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    visibility 0.5s ease-in-out;
+  visibility: hidden;
+}
+
+.books__book:hover .cart {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-20px);
+}
+
+
+
+/* Animation */

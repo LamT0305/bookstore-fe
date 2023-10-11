@@ -1,0 +1,16 @@
+.book-nav .active-sort-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #5a8f7b;
+  padding: 4px 5px;
+  display: flex;
+}
+
+.active-sort-btn svg {
+  color: #5a8f7b;
+}
+.book-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}

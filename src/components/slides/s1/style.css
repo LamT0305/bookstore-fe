@@ -1,0 +1,76 @@
+.hero__image {
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 30px;
+  padding-right: 30px;
+  position: relative;
+}
+
+.hero__image img {
+  border-radius: 5px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__image:after {
+  border: 3px dotted #5a8f7b;
+  border-radius: 5px;
+  content: "";
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 80%;
+  z-index: 0;
+}
+
+.badge-text {
+  color: #5a8f7b;
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
+
+.display-4 {
+  font-weight: 700;
+}
+
+.button {
+  background: #5a8f7b;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0;
+  padding: 10px 30px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+/* Define the button styles */
+.button__primary {
+  background: linear-gradient(
+    to right,
+    #5a8f7b,
+    #2f4858
+  ); /* Gradient background */
+  background-size: 200% 100%; /* Double the size to cover the entire button */
+  border-radius: 3px;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: background 1s ease-in-out; /* Add a background color transition */
+}
+
+/* Trigger the slide animation on hover */
+.button__primary:hover {
+  background-position: 100% 0; /* Slide the background fully to the right on hover */
+  color: #fff;
+}

@@ -1,0 +1,75 @@
+.filter__item {
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.filter--title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.filter__item--category {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter form input,
+.filter form select {
+  background-color: #f8f9fa;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.5s;
+  width: 100%;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #2f4858;
+  font-family: Philosopher, sans-serif;
+  font-weight: 700;
+}
+
+.filter__item--category button.active,
+.filter__item--category button:hover {
+  border-bottom: 1px solid #d5d5d5;
+  color: #5a8f7b;
+}
+
+.category-name {
+  padding: 5px;
+  font-weight: 500;
+}
+
+ul {
+  padding: 0 !important;
+}
+
+.category-name-active{
+    color:#5a8f7b;
+    text-decoration: underline;
+    padding: 5px;
+    font-weight: 500;
+}
+
+.filter form select {
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.price{
+    width: 100%;
+}

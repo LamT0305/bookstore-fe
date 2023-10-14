@@ -5,10 +5,11 @@ import PhoneIcon from "../../assets/images/phone.png";
 import UserIcon from "../../assets/images/user.png";
 import { useState } from "react";
 import Menu from "../menu/Menu";
+import CartIcon from "../../assets/images/icons8-bag-32.png"
 
 function NavBar() {
   const [isOpen, setIsopen] = useState(false);
-
+  const isAuthenticated = sessionStorage.getItem("isAuthenticated");
   return (
     <>
       <div className="nav-bar">
@@ -44,6 +45,10 @@ function NavBar() {
               <img src={UserIcon} alt="login-icon" width={32} />
             </Link>
           </div>
+          {isAuthenticated && isAuthenticated == "1" ? <div className="cart-user">
+            <img src={CartIcon} alt=""/>
+          </div> : null}
+          
         </div>
         {/* phone */}
       </div>

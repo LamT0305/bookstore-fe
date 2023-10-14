@@ -3,7 +3,7 @@ import NavBar from "../header/NavBar";
 import Home from "../../pages/Home";
 import Footer from "../footer/Footer";
 import AllBooks from "../../pages/AllBooks";
-import Login from "../auth/Login/Login";
+import Authenticate from "../auth/Authenticate";
 
 const Layout = () => {
   return (
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/log-in",
-        element: <Login/>
+        element: <Authenticate/>
       }
     ],
   },

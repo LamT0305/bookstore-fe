@@ -1,4 +1,4 @@
-const GET_API = (id: any) => {
+export const GET_API = (id: any) => {
   return {
     getAllCategory: "/categories",
     getCategoryById: `/categories/${id}`,
@@ -15,7 +15,7 @@ const GET_API = (id: any) => {
   };
 };
 
-const POST_API = () => {
+export const POST_API = () => {
   return {
     login: "/authenticate/login",
     register: "/authenticate/register",
@@ -28,7 +28,7 @@ const POST_API = () => {
   };
 };
 
-const PUT_API = (id: any) => {
+export const PUT_API = (id: any) => {
   return {
     updateCategory: `/categories/${id}`,
     updateBook: `/book/${id}`,
@@ -37,7 +37,7 @@ const PUT_API = (id: any) => {
   };
 };
 
-const DELETE_API = (id: any) => {
+export const DELETE_API = (id: any) => {
   return {
     deleteCategory: `/categories/${id}`,
     deleteAuthor: `/author/${id}`,

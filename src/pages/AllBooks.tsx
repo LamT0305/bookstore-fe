@@ -5,7 +5,7 @@ import ViewBook from "../components/viewBook/ViewBook";
 
 const AllBooks: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [id, SetId] = useState("");
   return (
     <>
       <div
@@ -17,12 +17,14 @@ const AllBooks: React.FC = () => {
             <Category />
           </div>
           <div className="col-md-9">
-            <Books isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Books isOpen={isOpen} setIsOpen={setIsOpen} setIdBook={SetId} />
           </div>
         </div>
       </div>
 
-      {isOpen ? <ViewBook isOpen={isOpen} setIsOpen={setIsOpen} /> : null}
+      {isOpen ? (
+        <ViewBook isOpen={isOpen} setIsOpen={setIsOpen} id={id} />
+      ) : null}
     </>
   );
 };

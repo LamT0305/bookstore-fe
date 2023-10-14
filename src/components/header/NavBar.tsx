@@ -5,7 +5,7 @@ import PhoneIcon from "../../assets/images/phone.png";
 import UserIcon from "../../assets/images/user.png";
 import { useState } from "react";
 import Menu from "../menu/Menu";
-import CartIcon from "../../assets/images/icons8-bag-32.png"
+import CartIcon from "../../assets/images/icons8-bag-32.png";
 
 function NavBar() {
   const [isOpen, setIsopen] = useState(false);
@@ -40,15 +40,24 @@ function NavBar() {
             <p>+0123456789</p>
           </div>
           {/* authentication*/}
-          <div className="login">
+          <div className="login"></div>
+          {isAuthenticated != undefined && isAuthenticated == "1" ? (
+            <>
+              <div className="current-user">
+                <Link to={"/current-user"}>
+                  <img src={UserIcon} alt="login-icon" width={32} />
+                </Link>
+              </div>
+
+              <div className="cart-user">
+                <img src={CartIcon} alt="" />
+              </div>
+            </>
+          ) : (
             <Link to={"/log-in"}>
               <img src={UserIcon} alt="login-icon" width={32} />
             </Link>
-          </div>
-          {isAuthenticated && isAuthenticated == "1" ? <div className="cart-user">
-            <img src={CartIcon} alt=""/>
-          </div> : null}
-          
+          )}
         </div>
         {/* phone */}
       </div>

@@ -1,0 +1,14 @@
+.customer-infor{
+    width: 80%;
+    padding: 50px;
+    height: 65vh;
+}
+
+.list-info{
+    list-style: none;
+    text-align: left;
+}
+
+.list-info li {
+    padding: 10px;
+}

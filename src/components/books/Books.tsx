@@ -7,9 +7,15 @@ import "./style.css";
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  setIdBook: (idBook: string) => void;
 }
 
-const Books: React.FC<Props> = ({ isOpen, setIsOpen }) => {
+const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
+  const handleViewBook = (id: any) => {
+    setIsOpen(!isOpen);
+    setIdBook(id);
+    console.log(id);
+  };
   return (
     <>
       <div>
@@ -68,7 +74,10 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen }) => {
                     By: {book?.author}
                   </p>
                   <p className="price">Price: ${book?.price}</p>
-                  <div className="view-btn" onClick={() => setIsOpen(!isOpen)}>
+                  <div
+                    className="view-btn"
+                    onClick={() => handleViewBook(book.id)}
+                  >
                     <Link to={"#"}>View Book</Link>
                   </div>
                 </div>

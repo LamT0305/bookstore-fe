@@ -3,8 +3,9 @@ import "./style.css";
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  id: string;
 }
-const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen }) => {
+const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(25);
 

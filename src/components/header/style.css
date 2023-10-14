@@ -63,10 +63,11 @@ p {
   justify-content: space-evenly;
 }
 
-.menu-btn{
+.menu-btn {
   cursor: pointer;
 }
 
-.login{
+.login {
   cursor: pointer;
 }
+

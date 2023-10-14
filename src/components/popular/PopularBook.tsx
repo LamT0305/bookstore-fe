@@ -3,8 +3,16 @@ import "./style.css";
 import bookData from "../../data/BookData";
 import { Link } from "react-router-dom";
 import Cart from "../../assets/images/cart.png";
-
-const PopularBook: React.FC = () => {
+interface Props {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  setIdBook: (idBook: string) => void;
+}
+const PopularBook: React.FC<Props> = ({ setIdBook, isOpen, setIsOpen }) => {
+  const handleViewBook = (id: any) => {
+    setIsOpen(!isOpen);
+    setIdBook(id);
+  };
   return (
     <div className="popular">
       <div style={{ paddingBottom: 30 }}>
@@ -54,7 +62,10 @@ const PopularBook: React.FC = () => {
                       By: {book?.author}
                     </p>
                     <p className="price">Price: ${book?.price}</p>
-                    <div className="view-btn">
+                    <div
+                      className="view-btn"
+                      onClick={() => handleViewBook(book.id)}
+                    >
                       <Link to={"#"}>View Book</Link>
                     </div>
                   </div>

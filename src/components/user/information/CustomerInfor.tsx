@@ -9,7 +9,6 @@ function CustomerInfor({}: Props) {
   useEffect(() => {
     handleGetCurrentUser();
   }, []);
-  console.log(user);
   return (
     <div className="customer-infor">
       <h3>User information:</h3>

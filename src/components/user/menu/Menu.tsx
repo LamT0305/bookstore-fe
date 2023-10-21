@@ -1,7 +1,13 @@
+import React, { useState } from "react";
 import useAuth from "../../../redux/hooks/useAuth";
 import "./style.css";
 
-function Menu() {
+interface props {
+  tabId: number;
+  setTabId: (value: number) => void;
+}
+
+const Menu: React.FC<props> = ({ tabId, setTabId }) => {
   const { handleLogOut } = useAuth();
   return (
     <div
@@ -22,15 +28,24 @@ function Menu() {
           listStyle: "none",
         }}
       >
-        <li>
+        <li
+          onClick={() => setTabId(1)}
+          className={tabId == 1 ? "tab-active" : ""}
+        >
           User information
           <hr />
         </li>
-        <li>
+        <li
+          onClick={() => setTabId(2)}
+          className={tabId == 2 ? "tab-active" : ""}
+        >
           Update user information
           <hr />
         </li>
-        <li>
+        <li
+          onClick={() => setTabId(3)}
+          className={tabId == 3 ? "tab-active" : ""}
+        >
           View order history
           <hr />
         </li>
@@ -41,6 +56,6 @@ function Menu() {
       </ul>
     </div>
   );
-}
+};
 
 export default Menu;

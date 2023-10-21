@@ -1,0 +1,19 @@
+.update-user-info {
+  width: 80%;
+  padding: 0 50px;
+  margin: 50px 0;
+  height: 65vh;
+}
+
+.list-info {
+  list-style: none;
+  text-align: left;
+}
+
+.list-info li {
+  padding: 10px;
+}
+
+.form-update label {
+  padding: 10px 0;
+}

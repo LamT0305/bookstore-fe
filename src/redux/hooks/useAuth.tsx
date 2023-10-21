@@ -3,7 +3,7 @@ import { useAppSelector } from "../store";
 import { RootState } from "../store";
 import { HANDLE_LOADING, HANDLE_SETUSER } from "../slices/AuthSlice";
 import axiosInstance from "../../utils/axios";
-import { GET_API, POST_API } from "../../utils/api";
+import { GET_API, POST_API, PUT_API } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
@@ -25,6 +25,7 @@ const useAuth = () => {
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
       alert("An error occurred");
+      console.log(error)
     }
   };
 
@@ -63,6 +64,15 @@ const useAuth = () => {
     }
   };
 
+  const handleUpdateUser = async (form:any) => {
+    dispatch(HANDLE_LOADING(true))
+    try {
+      // const res = await axiosInstance.put()
+    } catch (error:any) {
+      dispatch(HANDLE_LOADING(false))
+      alert("An error occurred")
+    }
+  }
   const handleLogOut = () => {
     sessionStorage.clear();
     navigate("/");

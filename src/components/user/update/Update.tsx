@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import useAuth from "../../../redux/hooks/useAuth";
 import "./style.css";
+import useUser from "../../../redux/hooks/userUser";
 
 const Update: React.FC = () => {
   const { user } = useAuth();
+  const { handleUpdateUser } = useUser();
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [address, setAddress] = useState(user.address);
   const [phone, setPhone] = useState(user.phone);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append("firstName", firstName);
+    form.append("lastName", lastName);
+    form.append("address", address);
+    form.append("phone", phone);
+
+    handleUpdateUser(form);
+  };
+
   return (
     <div className="update-user-info">
       <h3>Update user information:</h3>
-      <form className="form-update">
+      <form className="form-update" onSubmit={handleSubmit}>
         <div className="input-field">
           <label htmlFor="firstname">First name:</label>
           <input
@@ -52,7 +66,9 @@ const Update: React.FC = () => {
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
-        <button className="btn-submit">Update</button>
+        <button className="btn-submit">
+          Update
+        </button>
       </form>
     </div>
   );

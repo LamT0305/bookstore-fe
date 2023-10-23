@@ -1,0 +1,27 @@
+.formcreatebook{
+    padding: 50px;
+}
+
+.ql-editor{
+    height: 500px;
+}
+
+.input-field label{
+    margin-right: 10px;
+}
+
+.thumbnail{
+    width: 60%;
+    border: 1px solid;
+    padding: 20px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.thumbnail-img{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

@@ -7,9 +7,11 @@ import { useState } from "react";
 import Menu from "../menu/Menu";
 import CartIcon from "../../assets/images/icons8-bag-32.png";
 import useBook from "../../redux/hooks/useBook";
+import Cart from "../cart/Cart";
 
 function NavBar() {
   const [isOpen, setIsopen] = useState(false);
+  const [isOpenCart, setIsOpenCart] = useState(false);
   const isAuthenticated = sessionStorage.getItem("isAuthenticated");
   const [search, setSearch] = useState('');
   const { handleSearchBook } = useBook();
@@ -63,7 +65,10 @@ function NavBar() {
                 </Link>
               </div>
 
-              <div className="cart-user">
+              <div
+                className="cart-user"
+                onClick={() => setIsOpenCart(!isOpenCart)}
+              >
                 <img src={CartIcon} alt="" />
               </div>
             </>
@@ -76,6 +81,9 @@ function NavBar() {
         {/* phone */}
       </div>
       {isOpen ? <Menu isOpen={isOpen} setIsOpen={setIsopen} /> : null}
+      {isOpenCart ? (
+        <Cart isOpenCart={isOpenCart} setIsOpentCart={setIsOpenCart} />
+      ) : null}
     </>
   );
 }

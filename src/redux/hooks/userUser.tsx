@@ -34,3 +34,5 @@ const userUser = () => {
     handleUpdateUser
   };
 };
+
+export default userUser;

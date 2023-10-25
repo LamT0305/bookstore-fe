@@ -11,7 +11,7 @@ export const GET_API = (id: any) => {
     viewCartUser: "/customer/viewcart",
     viewOrderHistory: "/customer/view-order-history",
     getBookByName: "/book/search-by-book-name",
-    getBookByCategoryName: `book/get-books-by-category/${id}`,
+    getBookByCategoryName: `/book/get-books-by-category/${id}`,
   };
 };
 

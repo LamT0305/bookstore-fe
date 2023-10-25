@@ -25,6 +25,9 @@ const slice = createSlice({
     HANDLE_SETTOTAL(state, action: PayloadAction<any>) {
         state.totalPages = action.payload;
     },
+    HANDLE_ADDBOOK(state, action: PayloadAction<any>) {
+      state.book = action.payload;
+    },
     HANDLE_SEARCHBOOK(state, action: PayloadAction<any>) {
       state.book = action.payload;
   }
@@ -38,6 +41,7 @@ export const {
   HANDLE_UPDATEBOOK,
   HANDLE_DELETEBOOK,
   HANDLE_SETTOTAL,
-  HANDLE_SEARCHBOOK
+  HANDLE_SEARCHBOOK,
+  HANDLE_ADDBOOK
 } = actions;
 export default reducer;

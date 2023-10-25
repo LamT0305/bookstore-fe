@@ -8,16 +8,15 @@ const Category: React.FC = () => {
     getAllCates();
   }, []);
 
-  console.log(cate);
   return (
     <div className="filter">
       <div className="filter__item--category">
-      <h3 className="filter--title">Category</h3>
-        <ul style={{ listStyle: "none", textAlign:'left' }}>
-          {cate.map((e:any) => (
-            <>
-              <li className="category-name">{e.name}</li>
-            </>
+        <h3 className="filter--title">Category</h3>
+        <ul style={{ listStyle: "none", textAlign: "left" }}>
+          {cate.map((e: any) => (
+            <li key={e.id} className="category-name">
+              {e.name}
+            </li>
           ))}
         </ul>
       </div>
@@ -36,14 +35,15 @@ const Category: React.FC = () => {
         <div className="filter__item">
           <h3 className="filter--title">Money</h3>
           <p className="amount">USA&nbsp;Price</p>
-          <input
+          {/* <input
             type="range"
             name="price"
             className="price"
             min="0"
             max="250"
             value="250"
-          />
+            defaultValue={0}
+          /> */}
         </div>
       </div>
     </div>

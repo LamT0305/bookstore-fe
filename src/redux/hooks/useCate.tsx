@@ -21,11 +21,11 @@ const useCate = () => {
   const getAllCates = async () => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.get(GET_API("").getAllCategory)
+      const res = await axiosInstance.get(GET_API("",1).getAllCategory)
 
       if (res.status === 200) {
         const cates = res.data;
-        dispatch(HANDLE_SETCATE(cates));
+        dispatch(HANDLE_SETCATE(cates.categories));
         // window.location.reload();
         // alert(res.data);
       }
@@ -38,11 +38,7 @@ const useCate = () => {
   const handleGetCateByID = async (id: string) => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.get(GET_API(id).getCategoryById, {
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-        },
-      });
+      const res = await axiosInstance.get(GET_API(id,0).getCategoryById);
 
       if (res.status === 200) {
         dispatch(HANDLE_SEARCH);

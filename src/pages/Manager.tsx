@@ -1,12 +1,12 @@
-import React from 'react'
-import Managebook from '../components/Managebook/Managebook'
+import React from "react";
+import Managebook from "../components/Managebook/Managebook";
 
-function Manager() {
+const Manager: React.FC = () => {
   return (
-    <div>
-        <Managebook/>
+    <div style={{padding:'100px 20px'}}>
+      <Managebook />
     </div>
-  )
-}
+  );
+};
 
-export default Manager
+export default Manager;

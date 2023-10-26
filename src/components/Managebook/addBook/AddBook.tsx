@@ -4,28 +4,41 @@ import useBook from "../../../redux/hooks/useBook";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function AddBook() {
-  const {  handleAddBook } = useBook();
-  const [page, setPage] = useState(1);
+  const { handleAddBook } = useBook();
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
+  const [publishDate, setPublishDate] = useState("");
+  const [genre, setGenre] = useState("");
+  const [publisher, setpublisher] = useState("");
+  const [image, setImage] = useState(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = new FormData();
-    form.append("title", title);
-    form.append("price", price);
-    form.append("quantity", quantity);
-    form.append("description", description);
-    console.log("Formdata: ", form);
+    form.append("Title", title);
+    form.append("Price", price);
+    form.append("PublishDate", publishDate);
+    form.append("Genre", genre);
+    form.append("Quantity", quantity);
+    form.append("Description", description);
+    form.append("publisher", publisher);
+    if (image) {
+      form.append("image", image); // Append image to the form data if it's not null
+    }
     handleAddBook(form);
-    setTitle("");
-    setPrice("");
-    setQuantity("");
-    setDescription("");
+   
   };
 
+  const handleImageUpload = (e : any) => {
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile) {
+      setImage(uploadedFile);
+    }
+  };
+
+  console.log(image)
 
   return (
     <>
@@ -61,19 +74,7 @@ function AddBook() {
                   onChange={(e) => setPrice(e.target.value)}
                   required
                 />
-              </div>
-              {/* <div className="form-group mt-2 mb-2">
-                <label className="fw-bold" htmlFor="">
-                  Image
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="img"
-                  //   value={form.image}
-                  required
-                />
-              </div> */}
+              </div>         
               <div className="form-group mt-2 mb-2">
                 <label className="fw-bold" htmlFor="">
                   Quantity
@@ -99,6 +100,20 @@ function AddBook() {
                   name="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group mt-2 mb-2">
+                <label className="fw-bold" htmlFor="image">
+                  Image
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="image"
+                  accept="image/*" 
+                  onChange={handleImageUpload}
                   required
                 />
               </div>

@@ -99,9 +99,10 @@ const useBook = () => {
       const res = await axiosInstance.post(POST_API().createBook, form, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          "Content-Type": "multipart/form-data",
         },
       });
-
+      console.log(res)
       if (res.status === 200) {
         window.location.reload();
         dispatch(HANDLE_ADDBOOK);

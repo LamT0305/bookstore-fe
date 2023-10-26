@@ -10,6 +10,7 @@ const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, user } = useAppSelector((state: RootState) => state.auth);
+  
   const handleLogin = async (form: any) => {
     dispatch(HANDLE_LOADING(true));
     try {
@@ -43,11 +44,11 @@ const useAuth = () => {
     }
   };
 
-  const handleGetCurrentUser = async () => {
+  const handleGetCurrentUser = async (page:number) => {
     dispatch(HANDLE_LOADING(true));
     try {
       const accessToken = sessionStorage.getItem("accessToken");
-      const res = await axiosInstance.get(GET_API("").getCurrentUser, {
+      const res = await axiosInstance.get(GET_API("",page).getCurrentUser, {
         headers: {
           Authorization: "bearer " + accessToken,
         },

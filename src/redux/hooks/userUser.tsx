@@ -38,10 +38,10 @@ const useUser = () => {
     }
   };
 
-  const handleGetCartUser = async () => {
+  const handleGetCartUser = async (page: number) => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.get(GET_API("").viewCartUser, {
+      const res = await axiosInstance.get(GET_API("",page).viewCartUser, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },

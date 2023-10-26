@@ -8,7 +8,7 @@ interface prop {
 }
 
 const Login: React.FC<prop> = ({ isLogin, setIsLogin }) => {
-  const { isLoading, handleLogin } = useAuth();
+  const { handleLogin } = useAuth();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (e: React.FormEvent) => {
@@ -16,6 +16,7 @@ const Login: React.FC<prop> = ({ isLogin, setIsLogin }) => {
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
+    console.log(form)
     handleLogin(form);
     setUserName("");
     setPassword("");

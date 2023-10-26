@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import useBook from "../../redux/hooks/useBook";
+import useBook from "../../../redux/hooks/useBook";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function Managebook() {
-  const { getAllBooks, handleAddBook  } = useBook();
+function AddBook() {
+  const {  handleAddBook } = useBook();
   const [page, setPage] = useState(1);
-  const [form, setForm] = useState({
-    name: "",
-    price: "",
-    img: "",
-    quantity: "",
-    cate: ""
-  });
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleFormSubmit = (e:any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const form = new FormData();
+    form.append("title", title);
+    form.append("price", price);
+    form.append("quantity", quantity);
+    form.append("description", description);
+    console.log("Formdata: ", form);
     handleAddBook(form);
+    setTitle("");
+    setPrice("");
+    setQuantity("");
+    setDescription("");
   };
 
-  useEffect(() => {
-    getAllBooks(page);
-  }, [page]);
 
   return (
     <>
@@ -30,17 +34,18 @@ function Managebook() {
         {/* Opening div tag */}
         <div className="book-nav">{/* Your existing components */}</div>
         <div className="container text-center mb-3 col-md-8">
-          <form className="card bg-light ml-3 mr-3">
+          <form className="card bg-light ml-3 mr-3" onSubmit={handleSubmit}>
             <div className="form-group mt-2 mb-2">
               <div className="form-group mt-2 mb-2">
                 <label className="fw-bold" htmlFor="">
-                  Name
+                  Title
                 </label>
                 <input
                   className="form-control"
                   type="text"
-                  name="name"
-                  value={form.name}
+                  name="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                 />
               </div>
@@ -52,11 +57,12 @@ function Managebook() {
                   className="form-control"
                   type="number"
                   name="price"
-                  value={form.price}
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                   required
                 />
               </div>
-              <div className="form-group mt-2 mb-2">
+              {/* <div className="form-group mt-2 mb-2">
                 <label className="fw-bold" htmlFor="">
                   Image
                 </label>
@@ -64,10 +70,10 @@ function Managebook() {
                   className="form-control"
                   type="text"
                   name="img"
-                //   value={form.image}
+                  //   value={form.image}
                   required
                 />
-              </div>
+              </div> */}
               <div className="form-group mt-2 mb-2">
                 <label className="fw-bold" htmlFor="">
                   Quantity
@@ -76,7 +82,8 @@ function Managebook() {
                   className="form-control"
                   type="text"
                   name="quantity"
-                  value={form.quantity}
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
                   required
                   min="1"
                   max="20"
@@ -84,13 +91,14 @@ function Managebook() {
               </div>
               <div className="form-group mt-2 mb-2">
                 <label className="fw-bold" htmlFor="">
-                  Categorry
+                  Description
                 </label>
                 <input
                   className="form-control"
                   type="text"
-                  name="cate"
-                  value={form.cate}
+                  name="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                 />
               </div>
@@ -106,4 +114,4 @@ function Managebook() {
   );
 }
 
-export default Managebook;
+export default AddBook;

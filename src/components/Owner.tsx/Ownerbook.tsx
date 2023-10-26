@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import useBook from "../../redux/hooks/useBook";
 import { Link } from "react-router-dom";
-function Managebook() {
+function OwnerBook() {
   const { getAllBooks, handleDeleteBook, book } = useBook();
   const [page, setPage] = useState(1);
   useEffect(() => {
@@ -91,4 +91,4 @@ function Managebook() {
   );
 }
 
-export default Managebook;
+export default OwnerBook;

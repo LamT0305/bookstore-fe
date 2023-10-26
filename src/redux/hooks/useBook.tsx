@@ -3,6 +3,7 @@ import { useAppSelector } from "../store";
 import { RootState } from "../store";
 import axiosInstance from "../../utils/axios";
 import { GET_API, POST_API, PUT_API, DELETE_API } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 import {
   HANDLE_LOADING,
   HANDLE_DELETEBOOK,
@@ -16,6 +17,7 @@ import {
 const useBook = () => {
   const dispatch = useDispatch();
   const { isLoading, book } = useAppSelector((state: RootState) => state.book);
+  const navigate = useNavigate();
 
   const getAllBooks = async (page:number) => {
     dispatch(HANDLE_LOADING(true));
@@ -24,6 +26,7 @@ const useBook = () => {
       const books = res.data;
       if (res.status === 200) {
         dispatch(HANDLE_SETBOOK(books.books));
+        console.log(res.data)
       }
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
@@ -101,20 +104,23 @@ const useBook = () => {
 
       if (res.status === 200) {
         window.location.reload();
-        alert("Are you sure you want to?");
+        dispatch(HANDLE_ADDBOOK);
+        alert("Add book successfully");
+        navigate("/management");
         console.log(res);
       }else{
-        alert("Failed to delete book");
+        alert("Failed to add book");
       }
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
       alert("An error occurred");
     }
   }
-  const handleUpdateBook = async (form: any) => {
+
+  const handleUpdateBook = async (id:any, form: any) => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.put(PUT_API("").updateBook, form, {
+      const res = await axiosInstance.put(PUT_API(id).updateBook, form, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
         },

@@ -9,18 +9,20 @@ import CartIcon from "../../assets/images/icons8-bag-32.png";
 import useBook from "../../redux/hooks/useBook";
 import Cart from "../cart/Cart";
 
+
 function NavBar() {
   const [isOpen, setIsopen] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const isAuthenticated = sessionStorage.getItem("isAuthenticated");
   const [search, setSearch] = useState('');
   const { handleSearchBook } = useBook();
+  const [form, setForm] = useState();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const formdata = new FormData(); 
     formdata.append("bookName", search);
-    handleSearchBook(formdata);
+    // handleSearchBook(form);
   };
   return (
     <>

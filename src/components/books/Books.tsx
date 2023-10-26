@@ -4,7 +4,7 @@ import "./style.css";
 import useBook from "../../redux/hooks/useBook";
 import { Link } from "react-router-dom";
 
-const BASE_URL = "https://bookstore-api-demo.azurewebsites.net/"
+const BASE_URL = "https://bookstore-api-demo.azurewebsites.net"
 
 interface Props {
   isOpen: boolean;
@@ -19,7 +19,7 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
     setIdBook(id);
   };
 
-  const { getAllBooks, book } = useBook();
+  const { getAllBooks, books } = useBook();
   useEffect(() => {
     getAllBooks(page);
   }, [page]);
@@ -58,7 +58,7 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
           </span>
         </div>
         <div className="row justify-content-center">
-          {book.map((b: any) => (
+          {books.map((b: any) => (
             <div key={b.id} className="col-lg-4 col-sm-6 mb-4">
               <div className="books__book">
                 <div className="cart">
@@ -72,7 +72,7 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
                     }}
                   />
                 </div>
-                <img src={`${BASE_URL}`+b?.imagePath} alt="" className="img-fluid" />
+                <img loading="lazy" src={`${BASE_URL}`+b?.imagePath} alt="" className="img-fluid" />
                 <div className="books_book_bottom">
                   <h3 className="books__book__bottom--title">{b?.title}</h3>
                   <p className="books__book__bottom--subtitle">
@@ -80,6 +80,7 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
                   </p>
                   <p className="books__book__bottom--author">By: {b?.author}</p>
                   <p className="price">Price: ${b?.price}</p>
+                  <p className="">Availables: {b?.quantity}</p>
                   <div
                     className="view-btn"
                     onClick={() => handleViewBook(b.id)}

@@ -9,13 +9,17 @@ import {
   HANDLE_ADDPRODUCT,
   HANDLE_REMOVE_FROM_CART,
   HANDLE_UPDATE_CART,
+  HANDLE_GET_ORDERS,
 } from "../slices/UserSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const useUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, user } = useAppSelector((state: RootState) => state.user);
+  const { isLoading, user, cart, orders } = useAppSelector(
+    (state: RootState) => state.user
+  );
   const accessToken = sessionStorage.getItem("accessToken");
 
   const handleUpdateUser = async (form: FormData) => {
@@ -41,13 +45,14 @@ const useUser = () => {
   const handleGetCartUser = async () => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.get(GET_API("").viewCartUser, {
+      const res = await axiosInstance.get(GET_API("", 0).viewCartUser, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
       });
 
       if (res.status === 200) {
+        console.log(res.data);
         dispatch(HANDLE_GETCART(res.data));
       }
       dispatch(HANDLE_LOADING(false));
@@ -60,18 +65,21 @@ const useUser = () => {
   const handleAddToCart = async (form: any) => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.post(POST_API().addToCart, form);
+      const res = await axios.post(
+        "https://bookstore-api-demo.azurewebsites.net/api/v1/customer/addtocart",
+        form,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
       if (res.status === 200) {
-        const product = {
-          id: res.data.id,
-          quantity: res.data.quantity,
-          image: res.data.image,
-        };
-        dispatch(HANDLE_ADDPRODUCT(product));
-        alert(res.data.message);
+        alert("Added to cart successfully");
       }
       dispatch(HANDLE_LOADING(false));
-    } catch (error: any) {
+    } catch (e) {
+      console.log(e);
       dispatch(HANDLE_LOADING(false));
       alert("An error occurred");
     }
@@ -99,25 +107,62 @@ const useUser = () => {
     }
   };
 
-  const handleUpdateCartItems = async (form: any) => {
+  const handleUpdateCartItems = async (id: any, form: any) => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const id = form.get("id");
       const res = await axiosInstance.delete(PUT_API(id).updateCartItems, form);
-      if (res.status === 200) {
-        dispatch(HANDLE_UPDATE_CART(form));
-        alert("Deleted item successfully!");
-      } else if (res.status === 401) {
+      if (
+        sessionStorage.getItem("isAuthenticated") === "1" &&
+        res.status === 401
+      ) {
         alert("Session expired, please login again");
         window.location.reload();
         navigate("/login");
+      } else if (res.status === 200) {
+        // const form = new FormData();
+        // form.append("id", id)
+        // form.append("quantity", );
+        // dispatch(HANDLE_UPDATE_CART());
       }
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
       alert("An error occurred");
     }
   };
+  const handleCreateOrder = async () => {
+    try {
+      const res = await axiosInstance.post(POST_API().createOrder, "", {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+
+      if (res.status === 200) {
+        alert("Created Order successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetOrderHistory = async () => {
+    try {
+      const res = await axiosInstance.get(GET_API("", 0).viewOrderHistory, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+
+      if (res.status === 200) {
+        dispatch(HANDLE_GET_ORDERS(res.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
+    cart,
+    orders,
     isLoading,
     user,
     handleUpdateUser,
@@ -125,6 +170,8 @@ const useUser = () => {
     handleAddToCart,
     handleRemoveFromCart,
     handleUpdateCartItems,
+    handleCreateOrder,
+    handleGetOrderHistory
   };
 };
 

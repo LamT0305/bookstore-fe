@@ -33,7 +33,7 @@ export const PUT_API = (id: any) => {
     updateCategory: `/categories/${id}`,
     updateBook: `/book/${id}`,
     addCategoryToBook: `/book/addcategory`,
-    updateCartItems: "/customer/updatecart",
+    updateCartItems: `/customer/updatecart/${id}`,
     updateUserInfo: "/customer/update-customer-info"
   };
 };

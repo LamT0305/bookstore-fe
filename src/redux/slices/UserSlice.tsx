@@ -4,6 +4,7 @@ const initState = {
   isLoading: false,
   user: {} as any,
   cart: [] as any,
+  orders: {} as any,
 };
 
 const slice = createSlice({
@@ -20,7 +21,7 @@ const slice = createSlice({
       state.cart = state.cart.concat(action.payload);
     },
     HANDLE_REMOVE_FROM_CART: (state, action: PayloadAction<any>) => {
-      state.cart = state.cart.filter((e: any) => e.id !== action.payload);
+      state.cart = state.cart.filter((e: any) => e.bookId != action.payload);
     },
     HANDLE_UPDATE_CART: (state, action: PayloadAction<any>) => {
       const form = action.payload;
@@ -28,10 +29,14 @@ const slice = createSlice({
         const id = form.get("id");
         const quantity = form.get("quantity");
         const updateCart = state.cart.map((e: any) =>
-          e.id === id ? { ...e, quantity } : e
+          e.bookId === id ? { ...e, quantity } : e
         );
         state.cart = updateCart;
       }
+    },
+
+    HANDLE_GET_ORDERS: (state, action: PayloadAction<any>) => {
+      state.orders = action.payload;
     },
   },
 });
@@ -43,5 +48,6 @@ export const {
   HANDLE_ADDPRODUCT,
   HANDLE_REMOVE_FROM_CART,
   HANDLE_UPDATE_CART,
+  HANDLE_GET_ORDERS
 } = actions;
 export default reducer;

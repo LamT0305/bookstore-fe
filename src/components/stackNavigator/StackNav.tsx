@@ -6,6 +6,7 @@ import AllBooks from "../../pages/AllBooks";
 import Authenticate from "../auth/Authenticate";
 import CurrentUser from "../../pages/CurrentUser";
 import Manager from "../../pages/Manager";
+import Order from "../Admin/Order/Order";
 
 const Layout = () => {
   return (
@@ -39,9 +40,13 @@ const router = createBrowserRouter([
         element: <CurrentUser />,
       },
       {
-        path:"/management",
-        element: <Manager/>,
-      }
+        path: "/management",
+        element: <Manager />,
+      },
+      {
+        path: "/admin/orders",
+        element: <Order />,
+      },
     ],
   },
 ]);

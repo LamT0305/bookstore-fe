@@ -6,12 +6,22 @@ import UserIcon from "../../assets/images/user.png";
 import { useState } from "react";
 import Menu from "../menu/Menu";
 import CartIcon from "../../assets/images/icons8-bag-32.png";
+import useBook from "../../redux/hooks/useBook";
 import Cart from "../cart/Cart";
 
 function NavBar() {
   const [isOpen, setIsopen] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const isAuthenticated = sessionStorage.getItem("isAuthenticated");
+  const [search, setSearch] = useState('');
+  const { handleSearchBook } = useBook();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formdata = new FormData(); 
+    formdata.append("bookName", search);
+    handleSearchBook(formdata);
+  };
   return (
     <>
       <div className="nav-bar">
@@ -30,11 +40,15 @@ function NavBar() {
         </div>
         {/* Search bar */}
         <div className="search-bar">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search your book here"
-          />
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search your book here"
+              value ={search}
+              onChange={e =>  setSearch(e.target.value)}
+            />
+          </form>
         </div>
         <div className="contact-user">
           <div className="phone">

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cart from "../../assets/images/cart.png";
-import bookData from "../../data/BookData";
-import { Link } from "react-router-dom";
 import "./style.css";
+import useBook from "../../redux/hooks/useBook";
+import { Link } from "react-router-dom";
+
+const BASE_URL = "https://bookstore-api-demo.azurewebsites.net/"
 
 interface Props {
   isOpen: boolean;
@@ -11,11 +13,17 @@ interface Props {
 }
 
 const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
+  const [page, setPage] = useState(1);
   const handleViewBook = (id: any) => {
     setIsOpen(!isOpen);
     setIdBook(id);
-    console.log(id);
   };
+
+  const { getAllBooks, book } = useBook();
+  useEffect(() => {
+    getAllBooks(page);
+  }, [page]);
+
   return (
     <>
       <div>
@@ -50,8 +58,8 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
           </span>
         </div>
         <div className="row justify-content-center">
-          {bookData.map((book) => (
-            <div key={book.id} className="col-lg-4 col-sm-6 mb-4">
+          {book.map((b: any) => (
+            <div key={b.id} className="col-lg-4 col-sm-6 mb-4">
               <div className="books__book">
                 <div className="cart">
                   <img
@@ -64,19 +72,17 @@ const Books: React.FC<Props> = ({ isOpen, setIsOpen, setIdBook }) => {
                     }}
                   />
                 </div>
-                <img src={book?.imagePath} alt="" className="img-fluid" />
+                <img src={`${BASE_URL}`+b?.imagePath} alt="" className="img-fluid" />
                 <div className="books_book_bottom">
-                  <h3 className="books__book__bottom--title">{book?.title}</h3>
+                  <h3 className="books__book__bottom--title">{b?.title}</h3>
                   <p className="books__book__bottom--subtitle">
-                    {book?.description}
+                    {b?.description}
                   </p>
-                  <p className="books__book__bottom--author">
-                    By: {book?.author}
-                  </p>
-                  <p className="price">Price: ${book?.price}</p>
+                  <p className="books__book__bottom--author">By: {b?.author}</p>
+                  <p className="price">Price: ${b?.price}</p>
                   <div
                     className="view-btn"
-                    onClick={() => handleViewBook(book.id)}
+                    onClick={() => handleViewBook(b.id)}
                   >
                     <Link to={"#"}>View Book</Link>
                   </div>

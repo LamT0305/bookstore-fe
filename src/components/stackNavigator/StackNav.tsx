@@ -5,6 +5,7 @@ import Footer from "../footer/Footer";
 import AllBooks from "../../pages/AllBooks";
 import Authenticate from "../auth/Authenticate";
 import CurrentUser from "../../pages/CurrentUser";
+import Manager from "../../pages/Manager";
 
 const Layout = () => {
   return (
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         path: "/current-user",
         element: <CurrentUser />,
       },
+      {
+        path:"/management",
+        element: <Manager/>,
+      }
     ],
   },
 ]);

@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
+import useCate from "../../redux/hooks/useCate";
 
 const Category: React.FC = () => {
+  const { getAllCates, handleGetCateByID, cate } = useCate();
+  useEffect(() => {
+    getAllCates();
+  }, []);
+
   return (
     <div className="filter">
-      <div className="filter__item">
-        <form>
-          <input type="text" name="text" placeholder="Search" value="" />
-        </form>
-      </div>
-      <div className="filter__item" style={{ textAlign: "left" }}>
+      <div className="filter__item--category">
         <h3 className="filter--title">Category</h3>
-        <div className="filter__item--category">
-          <ul style={{ listStyle: "none" }}>
-            <li className="category-name-active">All</li>
-            <li className="category-name">Mystery Thriller</li>
-            <li className="category-name">Fantasy</li>
-            <li className="category-name">Biography</li>
-            <li className="category-name">Music</li>
-            <li className="category-name">Fiction</li>
-            <li className="category-name">Book Title</li>
-            <li className="category-name">Inspirationa;</li>
-          </ul>
-        </div>
+        <ul style={{ listStyle: "none", textAlign: "left" }}>
+          {cate.map((e: any) => (
+            <li key={e.id} className="category-name">
+              {e.name}
+            </li>
+          ))}
+        </ul>
       </div>
+
       <div className="filter__item">
         <h3 className="filter--title">Author</h3>
         <form action="#">
@@ -35,18 +32,19 @@ const Category: React.FC = () => {
             {/* Add more author options if needed */}
           </select>
         </form>
-      </div>
-      <div className="filter__item">
-        <h3 className="filter--title">Price</h3>
-        <p className="amount">USA&nbsp;250.00</p>
-        <input
-          type="range"
-          name="price"
-          className="price"
-          min="0"
-          max="250"
-          value="250"
-        />
+        <div className="filter__item">
+          <h3 className="filter--title">Money</h3>
+          <p className="amount">USA&nbsp;Price</p>
+          {/* <input
+            type="range"
+            name="price"
+            className="price"
+            min="0"
+            max="250"
+            value="250"
+            defaultValue={0}
+          /> */}
+        </div>
       </div>
     </div>
   );

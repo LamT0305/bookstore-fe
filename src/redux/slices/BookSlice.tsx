@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initState = {
   isLoading: false,
-  book: [] as any,
+  books: [] as any,
   totalPages: 0,
+  book: {} as any,
 };
 
 const slice = createSlice({
@@ -14,23 +15,27 @@ const slice = createSlice({
       state.isLoading = action.payload;
     },
     HANDLE_SETBOOK(state, action: PayloadAction<any>) {
-      state.book = action.payload;
+      state.books = action.payload;
     },
     HANDLE_UPDATEBOOK(state, action: PayloadAction<any>) {
-      state.book = action.payload;
+      state.books = action.payload;
     },
     HANDLE_DELETEBOOK(state, action: PayloadAction<any>) {
-      state.book = action.payload;
+      state.books = action.payload;
     },
     HANDLE_SETTOTAL(state, action: PayloadAction<any>) {
-        state.totalPages = action.payload;
+      state.totalPages = action.payload;
     },
     HANDLE_ADDBOOK(state, action: PayloadAction<any>) {
-      state.book = action.payload;
+      state.books = action.payload;
     },
     HANDLE_SEARCHBOOK(state, action: PayloadAction<any>) {
+      state.books = action.payload;
+    },
+
+    HANDLE_GETBOOK_BY_ID(state, action: PayloadAction<any>){
       state.book = action.payload;
-  }
+    }
   },
 });
 
@@ -42,6 +47,7 @@ export const {
   HANDLE_DELETEBOOK,
   HANDLE_SETTOTAL,
   HANDLE_SEARCHBOOK,
-  HANDLE_ADDBOOK
+  HANDLE_ADDBOOK,
+  HANDLE_GETBOOK_BY_ID
 } = actions;
 export default reducer;

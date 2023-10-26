@@ -11,11 +11,12 @@ import {
   HANDLE_SETTOTAL,
   HANDLE_ADDBOOK,
   HANDLE_SEARCHBOOK,
+  HANDLE_GETBOOK_BY_ID
 } from "../slices/BookSlice";
 
 const useBook = () => {
   const dispatch = useDispatch();
-  const { isLoading, book } = useAppSelector((state: RootState) => state.book);
+  const { isLoading, book, books } = useAppSelector((state: RootState) => state.book);
 
   const getAllBooks = async (page:number) => {
     dispatch(HANDLE_LOADING(true));
@@ -34,16 +35,10 @@ const useBook = () => {
   const handleGetBookByID = async (id: string) => {
     dispatch(HANDLE_LOADING(true));
     try {
-      const res = await axiosInstance.get(GET_API(id,0).getBookById, {
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-        },
-      });
+      const res = await axiosInstance.get(GET_API(id,0).getBookById);
 
       if (res.status === 200) {
-        dispatch(HANDLE_SEARCHBOOK)
-        window.location.reload();
-        alert(res.data);
+        dispatch(HANDLE_GETBOOK_BY_ID(res.data));
       }
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
@@ -132,6 +127,7 @@ const useBook = () => {
   };
 
   return {
+    books,
     book,
     isLoading: isLoading,
     getAllBooks,

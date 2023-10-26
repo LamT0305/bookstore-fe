@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
+import useBook from "../../redux/hooks/useBook";
+import useUser from "../../redux/hooks/userUser";
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   id: string;
 }
-const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
-  const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(25);
 
-  const handleChangeQuantity = (status: any) => {
-    if (status === "plus") {
-      setQuantity(quantity + 1);
-      setPrice(price + 25);
-    } else if (status === "minus") {
-      if (quantity >= 1) {
-        setQuantity(quantity - 1);
-        setPrice(price - 25);
-      }
-    }
+const BASE_URL = "https://bookstore-api-demo.azurewebsites.net";
+
+const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
+  const { book, handleGetBookByID } = useBook();
+  const { handleAddToCart } = useUser();
+  useEffect(() => {
+    handleGetBookByID(id);
+  }, []);
+
+  const handleAddItem = () => {
+    const form = new FormData();
+    form.append("bookId", id);
+    form.append("quantity", "1");
+    handleAddToCart(form);
   };
   return (
     <div className="wrapper-vb">
@@ -26,7 +29,7 @@ const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
         <div className="row">
           <div className="col" style={{ padding: 0 }}>
             <div className="view-book-nav">
-              <div className="book-title">It Ends With Us</div>
+              <div className="book-title">{book?.title}</div>
               <span className="close" onClick={() => setIsOpen(!isOpen)}>
                 <svg
                   stroke="currentColor"
@@ -44,7 +47,7 @@ const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
             <div className="book-content row">
               <div className="col-lg-6 mb-4 mb-lg-0">
                 <img
-                  src="https://firebasestorage.googleapis.com/v0/b/bookshelf-80a82.appspot.com/o/cover-4.jpg?alt=media&token=cf98c7fe-a7d8-4779-b1f9-ed502344ac95"
+                  src={`${BASE_URL}` + book?.imagePath}
                   alt=""
                   className="view-book-img"
                 />
@@ -58,14 +61,17 @@ const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
                       lineHeight: 1.6,
                       fontSize: 17,
                       fontWeight: "400",
+                      height: 215,
+                      overflow: "scroll",
                     }}
                   >
-                    In this “brave and heartbreaking novel that digs its claws
+                    {/* In this “brave and heartbreaking novel that digs its claws
                     into you and doesn’t let go, long after you’ve finished it”
                     (Anna Todd, New York Times bestselling author) from the #1
                     New York Times bestselling author of All Your Perfects, a
                     workaholic with a too-good-to-be-true romance can’t stop
-                    thinking about her first love.
+                    thinking about her first love. */}
+                    {book?.description}
                   </p>
                   <ul
                     style={{
@@ -91,7 +97,7 @@ const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
                     </li>
                     <li className="vb-detail">
                       <p>Price</p>
-                      <p>: 25$</p>
+                      <p>: ${book?.price}</p>
                     </li>
                     <li className="vb-detail">
                       <p>Publisher</p>
@@ -99,7 +105,7 @@ const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
                     </li>
                     <li className="vb-detail">
                       <p>Pulished Date</p>
-                      <p>: 2017-06-28</p>
+                      <p>: {book?.publishDate}</p>
                     </li>
                     <li className="vb-detail">
                       <p>ISBN</p>
@@ -107,28 +113,14 @@ const ViewBook: React.FC<Props> = ({ isOpen, setIsOpen, id }) => {
                     </li>
                   </ul>
                 </div>
-                {quantity == 0 ? (
-                  <div
-                    className="add-to-cart"
-                    style={{cursor:'pointer'}}
-                    onClick={() => handleChangeQuantity("plus")}
-                  >
-                    <p>Add to cart</p>
-                  </div>
-                ) : (
-                  <div className="calculation">
-                    <div className="quantity">
-                      <button onClick={() => handleChangeQuantity("minus")}>
-                        -
-                      </button>
-                      <p>{quantity}</p>
-                      <button onClick={() => handleChangeQuantity("plus")}>
-                        +
-                      </button>
-                    </div>
-                    <p>${price}</p>
-                  </div>
-                )}
+
+                <div
+                  className="add-to-cart"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleAddItem()}
+                >
+                  <p>Add to cart</p>
+                </div>
               </div>
             </div>
           </div>

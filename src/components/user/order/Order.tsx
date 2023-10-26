@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import useUser from "../../../redux/hooks/userUser";
 
 function Order() {
-  return (
-    <div>Order</div>
-  )
+  const { orders, handleGetOrderHistory } = useUser();
+  useEffect(()=>{
+    handleGetOrderHistory();
+  },[])
+  console.log(orders)
+  return <div>
+
+
+  </div>;
 }
 
-export default Order
+export default Order;
